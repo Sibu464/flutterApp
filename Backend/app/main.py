@@ -52,19 +52,7 @@ async def save_sawtooth_wave(db: Session = Depends(get_db)):
     db.commit()
     return {"message": "Sawtooth wave data saved successfully!"}
 
-#getting all points
-@app.get("/sawtooth")
-def get_sawtooth_wave(db: Session = Depends(get_db)):
-    data = db.query(SawtoothWave).all()
-    return {"data": [{"timestamp": point.timestamp, "amplitude": point.amplitude} for point in data]}
 
-# #get a point
-# @app.get("/sawtooth/next/{index}")
-# def get_next_sawtooth_wave(index: int, db: Session = Depends(get_db)):
-#     data = db.query(SawtoothWave).order_by(SawtoothWave.timestamp).offset(index).limit(3).first()
-#     if not data:
-#         raise HTTPException(status_code=404, detail="No more data available")
-#     return {"timestamp": data.timestamp, "amplitude": data.amplitude}
 
 #TODO Move endpoints to routes and crud operations to crud file
 @app.get("/sawtooth/next3/{index}")
